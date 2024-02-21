@@ -4,7 +4,7 @@ from .models import ToDoItem
 from .serializers import ToDoItemSerializer, UserSerializer
 
 
-class ToDoList(generics.ListCreateAPIView):
+class ToDoListView(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = ToDoItem.objects.all()
     serializer_class = ToDoItemSerializer
@@ -13,17 +13,17 @@ class ToDoList(generics.ListCreateAPIView):
         serializer.save(owner=self.request.user)
 
 
-class ToDoDetail(generics.RetrieveUpdateDestroyAPIView):
+class ToDoDetailView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = ToDoItem.objects.all()
     serializer_class = ToDoItemSerializer
 
 
-class UserList(generics.ListAPIView):
+class UserListView(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
 
-class UserDetail(generics.RetrieveAPIView):
+class UserDetailView(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
