@@ -6,4 +6,4 @@ todoproject/frontend/node_modules/
 **/migrations/
 **/*.lock
 **/*.json
-**/.pgpass
+todoproject/.pgpass
