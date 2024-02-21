@@ -5,7 +5,7 @@ from django.db import models
 class ToDoItem(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     content = models.CharField(max_length=70)
-    owner = models.ForeignKey(User, related_name='user_items', on_delete=models.CASCADE)
+    completed = models.BooleanField()
 
     class Meta:
         ordering = ['created',]
