@@ -7,4 +7,4 @@ todoproject/frontend/node_modules/
 **/*.lock
 **/*.json
 todoproject/.pgpass
-**/main.js
+todoproject/frontend/static/frontend/main.js
