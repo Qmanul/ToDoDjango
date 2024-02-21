@@ -3,3 +3,6 @@
 **/__pycache__/
 **/__init__.py
 todoproject/frontend/node_modules/
+**/migrations/
+**/*.lock
+**/*.json
