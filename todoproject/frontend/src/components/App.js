@@ -1,17 +1,18 @@
 import React, { Component } from "react";
 import { createRoot } from "react-dom/client";
 import HomePage from "./HomePage";
-import { getToDoItems } from ".api/todo";
+import { getToDoDetail } from "../api/todo";
 
-const loadToDoItems = async () => {
-  const res = await getToDoItems();
-  console.log(res)
+const postToDoItems = async () => {
+  const res = await getToDoDetail(1);
+  console.log(res);
 };
+
 
 export default class App extends Component {
   constructor(props) {
     super(props);
-    loadToDoItems();
+    postToDoItems();
   }
 
   render() {

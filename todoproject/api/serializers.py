@@ -6,4 +6,4 @@ class ToDoItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ToDoItem
-        fields = ['created', 'content', 'completed',]
+        fields = ['id', 'created', 'content', 'completed',]
