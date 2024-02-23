@@ -19,7 +19,7 @@ class ToDoView(CustomViewSets.CreateRetrieveDestroyListViewSet):
     queryset = ToDoItem.objects.all()
     serializer_class = ToDoItemSerializer
 
-    @action(methods=[HTTPMethod.PATCH], detail=True,
+    @action(methods=[HTTPMethod.POST], detail=True,
             url_path='switch-completion')
     def update_completion(self, request, pk=None):
         """
@@ -33,12 +33,13 @@ class ToDoView(CustomViewSets.CreateRetrieveDestroyListViewSet):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    @action(methods=[HTTPMethod.PATCH], detail=True,
+    @action(methods=[HTTPMethod.POST], detail=True,
             url_path='update-content')
     def update_content(self, request, pk=None):
         """
         updates item's content
         """
+        print(request.data)
         content_serializer = ContentSerializer(data=request.data)
         if not content_serializer.is_valid():
             return Response(status=status.HTTP_400_BAD_REQUEST)

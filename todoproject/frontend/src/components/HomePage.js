@@ -1,28 +1,46 @@
-import React, { Component } from "react";
+import React from "react";
 
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link,
-  Redirect,
-} from "react-router-dom";
 
-export default class HomePage extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
+export default function HomePage() {
     return (
-      <Router>
-        <Routes>
-          <Route
-            path="/"
-            element={<p>This is the home page</p>}
-          />
-        </Routes>
-      </Router>
+      <>
+        <div id="sidebar">
+          <h1>React Router Contacts</h1>
+          <div>
+            <form id="search-form" role="search">
+              <input
+                id="content"
+                aria-label="Search contacts"
+                placeholder="Search"
+                type="search"
+                name="content"
+              />
+              <div
+                id="search-spinner"
+                aria-hidden
+                hidden={true}
+              />
+              <div
+                className="sr-only"
+                aria-live="polite"
+              ></div>
+            </form>
+            <form method="post" action="/api/todo/1/update-content/">
+              <button type="submit">New</button>
+            </form>
+          </div>
+          <nav>
+            <ul>
+              <li>
+                <a href={`/contacts/1`}>Your Name</a>
+              </li>
+              <li>
+                <a href={`/contacts/2`}>Your Friend</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div id="detail"></div>
+      </>
     );
   }
-}

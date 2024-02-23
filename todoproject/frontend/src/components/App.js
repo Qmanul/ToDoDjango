@@ -1,22 +1,19 @@
-import React, { Component } from "react";
-import { createRoot } from "react-dom/client";
+import React from "react";
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 import HomePage from "./HomePage";
-import { getToDoDetail } from "../api/todo";
 
-export default class App extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <div>
-        <HomePage />
-      </div>
-    );
-  }
+export default function App() {
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <HomePage />,
+    },
+  ]);
+  
+  return(
+      <RouterProvider router={router} />
+  );
 }
-
-const appDiv = document.getElementById("app");
-const root = createRoot(appDiv);
-root.render(<App />)
