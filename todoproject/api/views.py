@@ -19,23 +19,35 @@ class ToDoView(CustomViewSets.CreateRetrieveDestroyListViewSet):
     queryset = ToDoItem.objects.all()
     serializer_class = ToDoItemSerializer
 
-    @action(methods=[HTTPMethod.PATCH], detail=True)
+    @action(methods=[HTTPMethod.PATCH], detail=True,
+            url_path='switch-completion')
     def update_completion(self, request, pk=None):
         """
         switches item's completion
         """
         todo = self.get_object()
-        todo.switch_completion()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        data = {'completed': not todo.completed}
+        serializer = self.get_serializer(todo, data=data, partial=True)
+        if not serializer.is_valid():
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
-    @action(methods=[HTTPMethod.PATCH], detail=True,)
+    @action(methods=[HTTPMethod.PATCH], detail=True,
+            url_path='update-content')
     def update_content(self, request, pk=None):
         """
         updates item's content
         """
+        content_serializer = ContentSerializer(data=request.data)
+        if not content_serializer.is_valid():
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
         todo = self.get_object()
-        serializer = ContentSerializer(data=request.data)
-        if serializer.is_valid():
-            todo.set_content(serializer.validated_data['content'])
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+        serializer = self.get_serializer(todo, data=content_serializer.validated_data, partial=True)
+
+        if not serializer.is_valid():
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)

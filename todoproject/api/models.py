@@ -11,11 +11,3 @@ class ToDoItem(models.Model):
 
     def __str__(self):
         return self.content
-
-    def switch_completion(self):
-        self.completed = not self.completed
-        self.save()
-
-    def set_content(self, new_content):
-        self.content = new_content
-        self.save()

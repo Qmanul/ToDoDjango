@@ -9,11 +9,11 @@ export const getToDoList = async () => {
 };
 
 export async function getToDoDetail(id) {
-    return await request(`${baseApiUrl}/todo/${id}`, 'get');
+    return await request(`${baseApiUrl}/todo/${id}/`, 'get');
 }
 
 export const deleteToDo = async (id) => {
-    return await request(`${baseApiUrl}/todo/${id}`, 'delete');    
+    return await request(`${baseApiUrl}/todo/${id}/`, 'delete');    
 };
 
 export const createToDo = async (content, completed=false) => {
@@ -27,14 +27,16 @@ export const createToDo = async (content, completed=false) => {
     return await request(`${baseApiUrl}/todo/`, 'post', payload);   
 };
 
-export const updateToDo = async (id, content, completed) => {
-    
-    const payload = {
-        content: content,
-        completed: completed
-    }
+export const switchToDoCompletion = async () => {
+    return await request(`${baseApiUrl}/todo/${id}/switch-completion/`, 'patch')
+};
 
-    return await request(`${baseApiUrl}/todo/${id}`, 'put', payload);    
+export const updateToDoContent = async (content) => {
+    if (!content) { return false; }
+
+    const payload = { content: content }
+
+    return await request(`${baseApiUrl}/todo/${id}/switch-completion/`, 'patch', payload)
 };
 
 async function request(url, method, data={}){
