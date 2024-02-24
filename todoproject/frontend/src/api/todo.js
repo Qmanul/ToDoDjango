@@ -27,8 +27,8 @@ export const createToDo = async (content, completed=false) => {
     return await request(`${baseApiUrl}/todo/`, 'post', payload);   
 };
 
-export const switchToDoCompletion = async () => {
-    return await request(`${baseApiUrl}/todo/${id}/switch-completion/`, 'patch')
+export const switchToDoCompletion = async (id) => {
+    return await request(`${baseApiUrl}/todo/${id}/switch-completion/`, 'post')
 };
 
 export const updateToDoContent = async (content) => {
@@ -36,7 +36,7 @@ export const updateToDoContent = async (content) => {
 
     const payload = { content: content }
 
-    return await request(`${baseApiUrl}/todo/${id}/switch-completion/`, 'patch', payload)
+    return await request(`${baseApiUrl}/todo/${id}/switch-completion/`, 'post', payload)
 };
 
 async function request(url, method, data={}){
@@ -46,8 +46,7 @@ async function request(url, method, data={}){
         data: data
     };
     try {
-        const res = await axios(options);
-        return res.data;
+        return await axios(options);
     }
     catch (e) {
         console.error(e);

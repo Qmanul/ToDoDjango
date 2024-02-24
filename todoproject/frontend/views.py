@@ -7,3 +7,4 @@ def index(request, *args, **kwargs):
 
 def test(request, *args, **kwargs):
     return render(request, 'frontend/test.html')
+    

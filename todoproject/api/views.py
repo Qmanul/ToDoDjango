@@ -1,21 +1,13 @@
-from rest_framework import viewsets, mixins, status
+from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from http import HTTPMethod
+from . import customviewsets
 from .models import ToDoItem
 from .serializers import ToDoItemSerializer, ContentSerializer
 
 
-class CustomViewSets:
-    class CreateRetrieveDestroyListViewSet(mixins.CreateModelMixin,
-                                           mixins.RetrieveModelMixin,
-                                           mixins.DestroyModelMixin,
-                                           mixins.ListModelMixin,
-                                           viewsets.GenericViewSet):
-        pass
-
-
-class ToDoView(CustomViewSets.CreateRetrieveDestroyListViewSet):
+class ToDoView(customviewsets.CreateRetrieveDestroyListViewSet):
     queryset = ToDoItem.objects.all()
     serializer_class = ToDoItemSerializer
 
