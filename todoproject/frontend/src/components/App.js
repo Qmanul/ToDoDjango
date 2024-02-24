@@ -4,12 +4,17 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import HomePage from "./HomePage";
+import ErrorPage from "./TestPage";
 
 export default function App() {
   const router = createBrowserRouter([
     {
       path: "/",
       element: <HomePage />,
+    },
+    {
+      path: 'test',
+      element: <ErrorPage />
     },
   ]);
   
