@@ -1,8 +1,10 @@
 const path = require("path");
 const webpack = require("webpack");
 
-module.exports = {
-  entry: "./src/index.js",
+const config = {
+  entry: [
+    './src/index.js'
+  ],
   output: {
     path: path.resolve(__dirname, "./static/frontend"),
     filename: "[name].js",
@@ -10,16 +12,33 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-        },
+        test: /\.(js|jsx)$/,
+        use: 'babel-loader',
+        exclude: /node_modules/
       },
-    ],
-  },
-  optimization: {
-    minimize: true,
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader'
+        ],
+        exclude: /\.module\.css$/
+      },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+              modules: true
+            }
+          }
+        ],
+        include: /\.module\.css$/
+      }
+    ]
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -30,3 +49,5 @@ module.exports = {
     }),
   ],
 };
+
+module.exports = config;

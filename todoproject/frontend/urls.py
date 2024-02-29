@@ -1,7 +1,7 @@
-from django.urls import path
+from django.urls import re_path
 from . import views
+from django.views.generic.base import TemplateView
 
 urlpatterns = [
-    path('', views.index),
-    path('test/', views.test),
+    re_path('', TemplateView.as_view(template_name='frontend/index.html')),
 ]

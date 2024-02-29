@@ -1,6 +1,7 @@
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from django_filters.rest_framework import DjangoFilterBackend
 from http import HTTPMethod
 from . import customviewsets
 from .models import ToDoItem
@@ -10,16 +11,17 @@ from .serializers import ToDoItemSerializer, ContentSerializer
 class ToDoView(customviewsets.CreateRetrieveDestroyListViewSet):
     queryset = ToDoItem.objects.all()
     serializer_class = ToDoItemSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['completed']
 
     @action(methods=[HTTPMethod.POST], detail=True,
             url_path='switch-completion')
     def update_completion(self, request, pk=None):
         """
-        switches item's completion
+        switch item's completion
         """
         todo = self.get_object()
-        data = {'completed': not todo.completed}
-        serializer = self.get_serializer(todo, data=data, partial=True)
+        serializer = self.get_serializer(todo, data={'completed': not todo.completed}, partial=True)
         if not serializer.is_valid():
             return Response(status=status.HTTP_400_BAD_REQUEST)
         serializer.save()
@@ -29,7 +31,7 @@ class ToDoView(customviewsets.CreateRetrieveDestroyListViewSet):
             url_path='update-content')
     def update_content(self, request, pk=None):
         """
-        updates item's content
+        updat item's content
         """
         print(request.data)
         content_serializer = ContentSerializer(data=request.data)

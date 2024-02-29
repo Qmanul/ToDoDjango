@@ -1,54 +1,49 @@
 import axios from "axios";
 
 
-const baseApiUrl = 'api'
+const baseApiUrl = 'api/todo'
 
 
 export const getToDoList = async () => {
-    return await request(`${baseApiUrl}/todo/`, 'get');
+  return await request({url:`${baseApiUrl}/`, method: 'get'});
 };
 
-export async function getToDoDetail(id) {
-    return await request(`${baseApiUrl}/todo/${id}/`, 'get');
+export const  getToDoDetail = async (id) => {
+  return await request({url: `${baseApiUrl}/${id}/`, method: 'get'});
 }
 
 export const deleteToDo = async (id) => {
-    return await request(`${baseApiUrl}/todo/${id}/`, 'delete');    
+  return await request({url: `${baseApiUrl}/${id}/`, method: 'delete'});    
 };
 
 export const createToDo = async (content, completed=false) => {
-    if (!content) { return false; }
+  if (!content) { throw new Error('No content provided') }
 
-    const payload = {
-        content: content,
-        completed: completed
-    }
-
-    return await request(`${baseApiUrl}/todo/`, 'post', payload);   
+  return await request({url: `${baseApiUrl}/`, method: 'post', data: {content: content, completed: completed}});   
 };
 
 export const switchToDoCompletion = async (id) => {
-    return await request(`${baseApiUrl}/todo/${id}/switch-completion/`, 'post')
+  return await request({url: `${baseApiUrl}/${id}/switch-completion/`, method: 'post'})
 };
 
 export const updateToDoContent = async (content) => {
-    if (!content) { return false; }
+  if (!content) { throw new Error('No content provided') }
 
-    const payload = { content: content }
-
-    return await request(`${baseApiUrl}/todo/${id}/switch-completion/`, 'post', payload)
+  return await request({url: `${baseApiUrl}/${id}/update=content/`, method: 'post', data: {content: content }})
 };
 
-async function request(url, method, data={}){
-    const options = {
-        url: url,
-        method: method,
-        data: data
-    };
-    try {
-        return await axios(options);
-    }
-    catch (e) {
-        console.error(e);
-    }
+async function request({url=baseApiUrl, method='get', data={}, params=null}={}){
+  const options = {
+    url: url,
+    method: method,
+    params: params,
+    data: data
+  }
+
+  try {
+    return await axios(options);
+  }
+  catch (e) {
+    console.error(e);
+  }
 }

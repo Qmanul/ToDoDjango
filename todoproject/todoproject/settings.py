@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'api',
     'frontend',
     'drf_yasg',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +52,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #"django.middleware.cache.UpdateCacheMiddleware",
+    #"django.middleware.cache.FetchFromCacheMiddleware",
 ]
 
 ROOT_URLCONF = 'todoproject.urls'
@@ -144,3 +147,18 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_RENDERER_CLASSES': DEFAULT_RENDERER_CLASSES
 }
+'''
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://redis-13974.c323.us-east-1-2.ec2.cloud.redislabs.com:13974",
+        "OPTIONS": {
+            "db": "0",
+            "username": 'default',
+            "password": "3pwxh2QGwIEuEpsxhjnKk3XAfhnlyHvy",
+            "parser_class": "redis.connection.DefaultParser",
+            "pool_class": "redis.BlockingConnectionPool",
+        },
+    }
+}
+'''

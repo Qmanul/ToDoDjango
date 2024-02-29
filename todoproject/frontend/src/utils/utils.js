@@ -13,3 +13,9 @@ export const checkInputInt = async (fn) => {
           return fn(...args);
     }
 };
+
+export const groupByCompletion = (oldArr) => {
+  let newArr = [[], []]
+  oldArr.forEach((el) => (el.completed) ? newArr[0].push(el) : newArr[1].push(el))
+  return newArr
+}
