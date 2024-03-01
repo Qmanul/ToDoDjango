@@ -31,7 +31,7 @@ class ToDoView(customviewsets.CreateRetrieveDestroyListViewSet):
             url_path='update-content')
     def update_content(self, request, pk=None):
         """
-        updat item's content
+        update item's content
         """
         print(request.data)
         content_serializer = ContentSerializer(data=request.data)

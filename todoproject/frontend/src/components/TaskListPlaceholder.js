@@ -15,7 +15,7 @@ export default class TaskListPlaceholder extends Component {
             {[...Array(5)].map((_, i) => (
               <ListGroup.Item key={i}>
                 <Stack direction="horizontal" gap={3}>
-                  <Placeholder as={Form.Control} type='checkbox' />
+                  <Placeholder animation='glow' as={Form.Control} type='checkbox' />
                   <Placeholder.Button variant="link" size="auto"><TrashFill/></Placeholder.Button>
                 </Stack>
               </ListGroup.Item>
