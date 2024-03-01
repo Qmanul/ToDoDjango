@@ -2,10 +2,10 @@
 /.idea/
 **/__pycache__/
 **/__init__.py
-todoproject/frontend/node_modules/
+/frontend/node_modules/
 **/migrations/
 **/*.lock
 **/*.json
-todoproject/.pgpass
-todoproject/frontend/static/frontend/main.js
-todoproject/frontend/static/frontend/main.js.LICENSE.txt
+.pgpass
+/frontend/static/frontend/main.js
+/frontend/static/frontend/main.js.LICENSE.txt
