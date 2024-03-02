@@ -7,7 +7,7 @@ class ToDoItem(models.Model):
     completed = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ['created',]
+        ordering = ['id',]
 
     def __str__(self):
         return self.content
