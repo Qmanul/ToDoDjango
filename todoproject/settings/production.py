@@ -14,7 +14,7 @@ MIDDLEWARE += [
 DATABASES = {
     "default": dj_database_url.config(
         conn_max_age=600,
-        default=os.environ.get('DATABASE_URL')
+         default='postgresql://postgres:postgres@localhost:5432/todo',
     )
 }
 
