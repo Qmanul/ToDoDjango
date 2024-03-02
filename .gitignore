@@ -9,3 +9,4 @@
 .pgpass
 /frontend/src
 **/webpack.config.js
+**/**.env
