@@ -45,3 +45,14 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 CSRF_COOKIE_SECURE = True
 
 SESSION_COOKIE_SECURE = True
+
+DEFAULT_RENDERER_CLASSES = DEFAULT_RENDERER_CLASSES + (
+    'rest_framework.renderers.BrowsableAPIRenderer',
+)
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
+    ),
+    'DEFAULT_RENDERER_CLASSES': DEFAULT_RENDERER_CLASSES
+}
