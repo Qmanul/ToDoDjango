@@ -3,7 +3,6 @@
 **/__pycache__/
 **/__init__.py
 /frontend/node_modules/
-**/migrations/
 **/*.lock
 **/*.json
 .pgpass
