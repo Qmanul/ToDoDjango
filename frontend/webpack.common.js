@@ -1,5 +1,4 @@
 const path = require("path");
-const webpack = require("webpack");
 
 const config = {
   entry: [
@@ -7,7 +6,8 @@ const config = {
   ],
   output: {
     path: path.resolve(__dirname, "./static/frontend"),
-    filename: "[name].js",
+    filename: "main.js",
+    clean: true, 
   },
   module: {
     rules: [
@@ -40,14 +40,6 @@ const config = {
       }
     ]
   },
-  plugins: [
-    new webpack.DefinePlugin({
-      "process.env": {
-        // This has effect on the react lib size
-        NODE_ENV: JSON.stringify("development"),
-      },
-    }),
-  ],
 };
 
 module.exports = config;

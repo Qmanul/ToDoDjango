@@ -1,12 +1,15 @@
 #!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
-import os
+from os.path import join
+from dotenv import load_dotenv
+from pathlib import Path
 import sys
 
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'todoproject.settings')
+    dotenv_path = join(Path(__file__).parent, 'todoproject', '.env')
+    load_dotenv(dotenv_path)
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

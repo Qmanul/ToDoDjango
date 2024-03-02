@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import TaskList from "../components/TaskList";
-import AddTask from "../components/AddTask";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import { getToDoList, createToDo, switchToDoCompletion, deleteToDo } from "../api/todo"
-import TaskListPlaceholder from "../components/TaskListPlaceholder.js";
-import { Alert } from "react-bootstrap";
+import { Alert, Spinner } from "react-bootstrap";
 
+const TaskListPlaceholder = lazy(() => import("../components/TaskListPlaceholder.js")) ;
+const AddTask = lazy(() => import("../components/AddTask")) ;
+const TaskList = lazy(() => import("../components/TaskList")) ;
 
 export default function HomePage() {
   const [tasks, setTasks] = useState([])
@@ -45,16 +45,18 @@ export default function HomePage() {
       <Alert show={!!showError} variant="danger" onClose={() => setShowError('')} dismissible>
         <p>{showError}</p>
       </Alert>
-      <AddTask onTaskCreateSubmit={handleTaskCreate}/>
-      {loading ? (
-        <TaskListPlaceholder />
-      ) : (
-        <TaskList
-          tasks={tasks}
-          onTaskCompletionUpdate={handleTaskCopletionUpdate}
-          onTaskDelete={handleTaskDelete}
-        />
-      )}
+      <Suspense fallback={<Spinner animation="border" role="status" />}>
+        <AddTask onTaskCreateSubmit={handleTaskCreate}/>
+        {loading ? (
+          <TaskListPlaceholder />
+        ) : (
+          <TaskList
+            tasks={tasks}
+            onTaskCompletionUpdate={handleTaskCopletionUpdate}
+            onTaskDelete={handleTaskDelete}
+          />
+        )}
+      </Suspense>
     </>
   )
 }

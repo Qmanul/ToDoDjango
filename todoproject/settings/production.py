@@ -1,3 +1,7 @@
+import json
+
+import dj_database_url
+
 from .base import *
 
 DEBUG = False
@@ -8,23 +12,32 @@ MIDDLEWARE += [
 ]
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default='postgresql://postgres:postgres@localhost:5432/ToDo',
-        conn_max_age=600
+    "default": dj_database_url.config(
+        conn_max_age=600,
+        default=os.environ.get('DATABASE_URL')
     )
 }
 
+ALLOWED_HOSTS = json.loads(os.environ.get('ALLOWED_HOSTS'))
 
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": "redis://redis-13974.c323.us-east-1-2.ec2.cloud.redislabs.com:13974",
+        "LOCATION": os.environ.get('CACHE_LOCATION'),
         "OPTIONS": {
-            "db": "0",
-            "username": 'default',
-            "password": "3pwxh2QGwIEuEpsxhjnKk3XAfhnlyHvy",
+            "db": os.environ.get('CACHE_DB'),
+            "username": os.environ.get('CACHE_USERNAME'),
+            "password": os.environ.get('CACHE_PASSWORD'),
             "parser_class": "redis.connection.DefaultParser",
             "pool_class": "redis.BlockingConnectionPool",
         },
     }
 }
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+CSRF_COOKIE_SECURE = True
+
+SESSION_COOKIE_SECURE = True

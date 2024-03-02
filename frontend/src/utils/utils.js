@@ -2,7 +2,7 @@ export const isInt = function(value) {
     return !isNaN(value) && parseInt(Number(value)) == value && !isNaN(parseInt(value, 10));
 };
 
-export const checkInputInt = async (fn) => {
+export const checkInputInt = (fn) => {
     return function(...args) {
         if (args.length != fn.length) {
             throw new Error('Only submit required number of params');
